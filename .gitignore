@@ -1,0 +1,37 @@
+# Nodejs
+node_modules/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Vite
+vite.config.js.timestamp-*
+vite.config.ts.timestamp-*
+
+# binary
+*.exe
+
+# folders
+/.svelte-kit
+/package
+_mddocs
+_links/
+
+build/
+dist/
+_draft/
+_backup/
+pb_migrations/
+_settings/
+sqlite/
+
+# macos
+.DS_Store
+
+# secrets
+.env
+
+_*.js
+*.secret
