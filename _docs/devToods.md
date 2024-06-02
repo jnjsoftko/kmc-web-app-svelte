@@ -1,4 +1,53 @@
-[X] ## git mergy
+- [X] ## git branch
+
+```sh
+cd APP_ROOT
+
+git checkout dev
+# 포켓베이스 환경 구현
+git branch feature/jsonserver
+git checkout feature/jsonserver
+```
+
+- [X] ## install jsonserver
+
+```sh
+cd APP_ROOT/backend
+
+# 0.17.4보다 높은 버전에서는 안되는 게 뭐 있었다고 했었는데...
+npm i json-server@0.17.4
+```
+
+- [X] ## db.json
+  - `APP_ROOT/backend/db/jsonserver/users/db.json`
+
+- [X] ## https jsonServer
+  - `APP_ROOT/backend/nodejs/src/jsonServer.js`
+
+- [X] ## start jsonServer
+
+```sh
+cd APP_ROOT
+node backend/nodejs/src/jsonServer.js --db=users --port=3001
+```
+
+- [X] ## browser
+"""
+https://localhost:3001/employees
+
+https://localhost:3001/companines
+"""
+
+- [X] ## `APP_ROOT/backend/nodejs/src/test/jsonserver_1.js`
+
+```sh
+cd APP_ROOT/backend/nodejs/src/test
+node jsonserver_1.js
+```
+
+=====
+
+- [X] ## git mergy
 
 ```sh
 $ git branch --list

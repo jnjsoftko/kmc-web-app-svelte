@@ -1,0 +1,45 @@
+{
+    "employees": [
+      {
+        "id": "2",
+        "firstName": "fon",
+        "lastName": "foe",
+        "email": "fohb@gmail.com",
+        "age": 14,
+        "companyId": "2"
+      },
+      {
+        "id": "3",
+        "firstName": "New",
+        "lastName": "User",
+        "email": "newuser@example.com",
+        "age": 25,
+        "companyId": "1"
+      },
+      {
+        "firstName": "jungsam",
+        "lastName": "moon",
+        "email": "moon@gmail.com",
+        "age": 55,
+        "companyId": "2",
+        "id": "T5oNNXM"
+      }
+    ],
+    "companines": [
+      {
+        "id": "1",
+        "name": "Apple",
+        "description": "dddddddddd"
+      },
+      {
+        "id": "2",
+        "name": "Samsung",
+        "description": "dddddddddd"
+      },
+      {
+        "id": "3",
+        "name": "Apple2",
+        "description": "dddddddddd"
+      }
+    ]
+  }
