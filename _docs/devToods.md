@@ -1,3 +1,86 @@
+- [X] # install pocketbase(nodejs)
+
+```sh
+# install at APP_ROOT(backend & frontend에서 동시 사용)
+cd APP_ROOT
+npm init -y
+npm install pocketbase
+```
+
+
+```sh
+cd APP_ROOT/backend/nodejs
+npm init -y
+```
+
+> `backend/nodejs/package.json`
+```
+  "type": "module"
+```
+
+
+[X] ## pocketbase http 테스트
+
+> `backend/nodejs/src/test/pb_http.js`
+
+```js
+import PocketBase from 'pocketbase';
+const pb = new PocketBase(`http://localhost:8090`);
+const resultList = await pb.collection('users').getList(1, 50, {});
+console.log(resultList);
+```
+
+- [X] ## pocketbase https(0) 테스트
+
+> `backend/nodejs/src/test/pb_https_0.js`
+
+```js
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
+
+import PocketBase from 'pocketbase';
+import { getEnv } from '../utils/env.js';
+
+const { DEV_SETTINGS, KMC_APP_ROOT, VITE_BASE_IP, VITE_APP_PROTOCOL, VITE_POCKETBASE_HTTP_PORT, VITE_POCKETBASE_HTTPS_PORT } = getEnv();
+const POCKETBASE_PORT = VITE_APP_PROTOCOL === "https" ? VITE_POCKETBASE_HTTPS_PORT : VITE_POCKETBASE_HTTP_PORT 
+
+const pb = new PocketBase(`${VITE_APP_PROTOCOL}://${VITE_BASE_IP}:${POCKETBASE_PORT}`);
+const resultList = await pb.collection('users').getList(1, 50, {});
+console.log(resultList);
+```
+
+- [X] ## pocketbase https(cert) 테스트
+
+- [X] ### rootCA 경로 확인
+
+```sh
+mkcert -CAROOT
+```
+
+"""
+/Users/youchan/Library/Application Support/mkcert
+"""
+
+- [X] ### NODE_EXTRA_CA_CERTS 변수 저장
+> `~/.zshrc`
+
+```
+export NODE_EXTRA_CA_CERTS="/Users/youchan/Library/Application Support/mkcert/rootCA.pem"
+```
+
+- [!] ### test
+
+> `backend/nodejs/src/test/pb_https_cert.js`
+
+```js
+```
+
+"""
+`https://localhost:8091`은 성공했으나,
+`https://192.168.0.6:8091`은 계속 실패
+"""
+
+=====
+
 - [X] # pocketbase http
 
 - [X] ## git branch

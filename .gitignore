@@ -33,3 +33,5 @@ sqlite/
 # secrets
 .env
 
+_*.js
+*.secret

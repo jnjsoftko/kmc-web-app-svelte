@@ -1,7 +1,7 @@
 #!/bin/bash
 # ~/.zshrc
-# KMC_APP_ROOT=/Users/youchan/Dev/Jnj-soft/Projects/external/kmc-web-app-svelte
-# DEV_SETTINGS=/Users/youchan/Dev/Jnj-soft/_Settings
+# KMC_APP_ROOT=
+# DEV_SETTINGS=
 
 # .env 파일 위치 설정
 ENV_FILE="../.env"
@@ -46,9 +46,9 @@ for port in "${ports[@]}"; do
 done
 
 # pocketbase serve
-echo "pocketbase serve --dir='$KMC_APP_ROOT/backend/db/pocketbase/sqlite' --http='localhost:$VITE_POCKETBASE_HTTP_PORT'"
+echo "pocketbase serve --dir='$KMC_APP_ROOT/backend/db/pocketbase/sqlite' --http='$VITE_BASE_IP:$VITE_POCKETBASE_HTTP_PORT'"
 osascript -e 'tell app "Terminal"
-    do script "pocketbase serve --dir='$KMC_APP_ROOT/backend/db/pocketbase/sqlite' --http='localhost:$VITE_POCKETBASE_HTTP_PORT'"
+    do script "pocketbase serve --dir='$KMC_APP_ROOT/backend/db/pocketbase/sqlite' --http='$VITE_BASE_IP:$VITE_POCKETBASE_HTTP_PORT'"
 end tell' &
 
 # pocketbase http => https
@@ -58,3 +58,9 @@ echo "cd '$DEV_SETTINGS/caddy' && sudo caddy run"
 osascript -e 'tell app "Terminal"
     do script "cd '$DEV_SETTINGS/caddy' && sudo caddy run"
 end tell' &
+
+# pocketbase serve --dir='/Users/youchan/Dev/Jnj-soft/Projects/external/kmc-web-app-svelte/backend/db/pocketbase/sqlite' --http='192.168.0.6:8090'
+# pocketbase serve --dir='/Users/youchan/Dev/Jnj-soft/Projects/external/kmc-web-app-svelte/backend/db/pocketbase/sqlite' --http='localhost:8090'
+# cd '/Users/youchan/Dev/Jnj-soft/_Settings/caddy' && sudo caddy run
+
+# pocketbase serve --dir='/Users/youchan/Dev/Jnj-soft/Projects/external/kmc-web-app-svelte/backend/db/pocketbase/sqlite' --http='192.168.0.6:8090'  --https='192.168.0.6:8091'
