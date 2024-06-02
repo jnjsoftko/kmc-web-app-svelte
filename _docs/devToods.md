@@ -1,3 +1,20 @@
+- [X] # graphql 설정
+
+- [X] ## git branch
+
+```sh
+git checkout -b feature/graphql
+```
+
+- [X] ## install
+
+```sh
+cd APP_ROOT/backend/nodejs
+npm install @apollo/server apollo-server-express graphql
+```
+
+======
+
 - [X] ## git mergy feature/jsonserver
 
 ```sh

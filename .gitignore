@@ -26,6 +26,7 @@ _backup/
 pb_migrations/
 _settings/
 sqlite/
+jsonserver/
 
 # macos
 .DS_Store
