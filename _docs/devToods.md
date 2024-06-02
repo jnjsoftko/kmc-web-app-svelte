@@ -1,3 +1,20 @@
+[X] ## git mergy
+
+```sh
+$ git branch --list
+
+  dev
+* feature/pocketbase
+  main
+```
+
+```sh
+$ git checkout dev
+$ git merge feature/pocketbase
+```
+
+=====
+
 - [X] # install pocketbase(nodejs)
 
 ```sh
