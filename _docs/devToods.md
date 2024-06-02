@@ -1,10 +1,31 @@
+- [X] ## git mergy feature/jsonserver
+
+```sh
+$ git branch --list
+
+* dev
+  feature/jsonserver
+  feature/pocketbase
+  main
+```
+
+```sh
+$ git checkout dev
+$ git merge feature/jsonserver
+
+$ git branch -d feature/jsonserver
+```
+
+=====
+- [X] # jsonserver
+
 - [X] ## git branch
 
 ```sh
 cd APP_ROOT
 
 git checkout dev
-# 포켓베이스 환경 구현
+# jsonserver 환경 구현
 git branch feature/jsonserver
 git checkout feature/jsonserver
 ```
