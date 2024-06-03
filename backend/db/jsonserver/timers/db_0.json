@@ -1,0 +1,75 @@
+{
+  "timers": [
+    {
+      "id": "timer_1",
+      "timerLabel": "온침",
+      "durationLabel": "15분",
+      "durationTime": 900,
+      "state": "P",
+      "startTime": "2024-05-29T13:36:06.146Z",
+      "remainingTime": 898.0799999999969,
+      "step": "R",
+      "duration": 600
+    },
+    {
+      "id": "timer_2",
+      "timerLabel": "습부",
+      "durationLabel": "15분",
+      "durationTime": 900,
+      "state": "N",
+      "startTime": "",
+      "remainingTime": 900,
+      "step": "R"
+    },
+    {
+      "id": "timer_3",
+      "timerLabel": "",
+      "durationLabel": "15분",
+      "durationTime": 900,
+      "state": "N",
+      "startTime": "",
+      "remainingTime": 900,
+      "step": "R"
+    },
+    {
+      "id": "timer_4",
+      "timerLabel": "습부",
+      "durationLabel": "15분",
+      "durationTime": 300,
+      "state": "P",
+      "startTime": "2024-05-29T13:46:56.837Z",
+      "remainingTime": 20.431999999963683,
+      "duration": "15분",
+      "step": "R"
+    },
+    {
+      "id": "timer_5",
+      "timerLabel": "핫팩",
+      "durationLabel": "15분",
+      "durationTime": 900,
+      "state": "N",
+      "startTime": "",
+      "remainingTime": 900,
+      "step": "R"
+    },
+    {
+      "id": "timer_6",
+      "timerLabel": "침",
+      "durationLabel": "15분",
+      "durationTime": 900,
+      "state": "P",
+      "startTime": "2024-05-29T13:45:17.647Z",
+      "remainingTime": 520.4099999993454,
+      "step": "R"
+    },
+    {
+      "id": "timer_7",
+      "timerLabel": "",
+      "durationLabel": "15분",
+      "durationTime": 900,
+      "state": "N",
+      "startTime": "",
+      "remainingTime": 900
+    }
+  ]
+}

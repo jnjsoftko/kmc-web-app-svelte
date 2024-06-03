@@ -1,0 +1,17 @@
+{
+  "txItems": [
+    {
+      "id": "ict",
+      "label": "물리치료(ICT)",
+      "duration": 300,
+      "color": "red",
+      "group": 1,
+      "sort": 1
+    },
+    {
+      "id": "hotpack",
+      "label": "핫팩",
+      "duration": 900
+    }
+  ]
+}

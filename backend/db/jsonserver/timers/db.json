@@ -1,0 +1,177 @@
+{
+  "timers": [
+    {
+      "id": "timer_1",
+      "name": "물리치료",
+      "duration": 900,
+      "startTime": "2024-05-31T06:01:06.045Z",
+      "remaining": 711.1179999999854,
+      "state": "P",
+      "schedules": [
+        {
+          "name": "물리치료",
+          "duration": 15,
+          "state": "N"
+        },
+        {
+          "name": "핫팩",
+          "duration": 15,
+          "state": "N"
+        },
+        {
+          "name": "침",
+          "duration": 15,
+          "state": "N"
+        },
+        {
+          "name": "온뜸",
+          "duration": 15,
+          "state": "N"
+        }
+      ]
+    },
+    {
+      "id": "timer_2",
+      "name": "핫팩",
+      "duration": 900,
+      "startTime": "2024-05-31T12:34:50.740Z",
+      "remaining": 592.217999999873,
+      "state": "P",
+      "schedules": []
+    },
+    {
+      "id": "timer_3",
+      "name": "물리치료",
+      "duration": 900,
+      "startTime": "2024-05-31T08:39:30.681Z",
+      "remaining": 686.847999999982,
+      "state": "P",
+      "schedules": [
+        {
+          "name": "물리치료",
+          "duration": 15,
+          "state": "N"
+        },
+        {
+          "name": "핫팩",
+          "duration": 15,
+          "state": "N"
+        },
+        {
+          "name": "침",
+          "duration": 15,
+          "state": "N"
+        },
+        {
+          "name": "온뜸",
+          "duration": 15,
+          "state": "N"
+        }
+      ]
+    },
+    {
+      "id": "timer_4",
+      "name": "물리치료",
+      "duration": 900,
+      "startTime": "2024-05-31T08:43:04.974Z",
+      "remaining": 588.3719999998566,
+      "state": "P",
+      "schedules": [
+        {
+          "name": "물리치료",
+          "duration": 15,
+          "state": "N"
+        },
+        {
+          "name": "핫팩",
+          "duration": 15,
+          "state": "N"
+        },
+        {
+          "name": "침",
+          "duration": 15,
+          "state": "N"
+        },
+        {
+          "name": "온뜸",
+          "duration": 15,
+          "state": "N"
+        }
+      ]
+    },
+    {
+      "id": "timer_5",
+      "name": "물리치료",
+      "duration": 900,
+      "startTime": "2024-05-31T09:04:56.674Z",
+      "remaining": 877.842999999996,
+      "state": "P",
+      "schedules": [
+        {
+          "name": "물리치료",
+          "duration": 15,
+          "state": "N"
+        },
+        {
+          "name": "핫팩",
+          "duration": 15,
+          "state": "N"
+        },
+        {
+          "name": "습부",
+          "duration": 5,
+          "state": "N"
+        },
+        {
+          "name": "침",
+          "duration": 15,
+          "state": "N"
+        },
+        {
+          "name": "온뜸",
+          "duration": 15,
+          "state": "N"
+        }
+      ]
+    },
+    {
+      "id": "timer_6",
+      "name": "물리치료",
+      "duration": 900,
+      "startTime": "",
+      "remaining": 900,
+      "state": "N",
+      "schedules": [
+        {
+          "name": "물리치료",
+          "duration": 15,
+          "state": "N"
+        },
+        {
+          "name": "핫팩",
+          "duration": 15,
+          "state": "N"
+        },
+        {
+          "name": "침",
+          "duration": 15,
+          "state": "N"
+        },
+        {
+          "name": "온뜸",
+          "duration": 15,
+          "state": "N"
+        }
+      ]
+    },
+    {
+      "id": "timer_7",
+      "name": "",
+      "duration": 900,
+      "startTime": "",
+      "remaining": 900,
+      "state": "N",
+      "schedules": []
+    }
+  ]
+}

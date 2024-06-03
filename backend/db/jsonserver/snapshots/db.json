@@ -1,0 +1,54 @@
+{
+  "videos": [
+    {
+      "id": "9999999",
+      "files": [
+        {
+          "date": "20240525",
+          "type": "diagnosis",
+          "url": "",
+          "path": ""
+        }
+      ]
+    }
+  ],
+  "audios": [
+    {
+      "id": "9999999",
+      "files": [
+        {
+          "date": "20240525",
+          "type": "diagnosis",
+          "url": "",
+          "path": ""
+        }
+      ]
+    }
+  ],
+  "photos": [
+    {
+      "id": "9999999",
+      "files": [
+        {
+          "date": "20240525",
+          "type": "diagnosis",
+          "url": "",
+          "path": ""
+        }
+      ]
+    }
+  ],
+  "files": [
+    {
+      "id": "9999999",
+      "files": [
+        {
+          "date": "20240525",
+          "type": "diagnosis",
+          "url": "",
+          "path": ""
+        }
+      ]
+    }
+  ]
+}

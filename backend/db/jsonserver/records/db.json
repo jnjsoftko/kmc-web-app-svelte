@@ -1,0 +1,20 @@
+{
+  "dxRecords": [
+    {
+      "id": "9999999",
+      "dxs": [
+        {
+          "date": "20240525",
+          "txs": [
+            {
+              "therapyId": "ict",
+              "duration": 360,
+              "sn": 1,
+              "memo": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

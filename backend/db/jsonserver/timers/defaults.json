@@ -1,0 +1,18 @@
+{
+    "timers": ["timerUnit0"],
+    "timerUnit": {
+        "id": "timer_0",
+        "timerLabel": "치료0",
+        "duration": 900,
+        "schedules": ["scheduleUnit0"],
+        "startTime": "",
+        "remaining": 900,
+        "state": "N"
+    },
+    "scheduleUnit": {
+        "timerLabel": "치료0",
+        "duration": 900,
+        "state": "N"
+    }
+}
+
