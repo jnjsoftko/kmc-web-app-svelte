@@ -1,8 +1,16 @@
 <script lang="ts">
-	import { onMount, onDestroy } from 'svelte';
-	import { PB } from '$lib/pocketbase';
+	// * requirements
+	// pocketbase serve --dir="/Users/youchan/Dev/Jnj-soft/Projects/external/kmc-web-app-svelte/backend/db/pocketbase/sqlite" --http="localhost:8090"
+	// ROOT/frontend$ npm run dev 
 
+	import { onMount, onDestroy } from 'svelte';
+	import PocketBase from 'pocketbase';
+
+	const PB = new PocketBase('http://localhost:8090');
+
+	// export let timerId = `timer_1`;
 	let timerId = `timer_1`;
+	let action = 'INIT';
 	const TIMERS_COLLECTION_NAME = 'txRoomTimers';
 
 	let timer: any = {};
@@ -28,12 +36,12 @@
 		schedules = [
 				{
 					name: '치료1',
-					duration: 5,
+					duration: 120,
 					state: 'N'
 				},
 				{
 					name: '치료2',
-					duration: 5,
+					duration: 120,
 					state: 'N'
 				},
 			]
@@ -45,12 +53,15 @@
 		await PB.collection('txRoomTimers').update(timer.id, data);
 	};
 
+	// * Timer callbacks
 	const drawTimer = async (timer) => {
+		// * run timer
 		if (timer.state === 'R') {
 			const startTime = new Date(timer.startTime).getTime();
 			const now = Date.now();
 			const elapsed = (now - startTime) / 1000;
 			timer.remaining = Math.max(0, timer.remaining - elapsed);
+			// timer.remaining = Math.floor(Math.max(0, timer.remaining - elapsed));
 			lastUpdateTime = now;
 			running = true;
 			if (timer.remaining > 0) {
@@ -65,9 +76,9 @@
 	};
 
 	const pauseTimer = async () => {
-		// cancelAnimationFrame();
 		const data = { remaining: timer.remaining, state: 'P' };
 		await PB.collection('txRoomTimers').update(timer.id, data);
+		action = 'PAUSE'
 	};
 
 	const startTimer = async () => {
@@ -95,14 +106,20 @@
 
 	const nextTimer = async () => {
 		cancelAnimationFrame();
+
+		// * [TODO] 다음 스케줄로 변경, 다음 스케줄 없으면 'Completed' event 발생
 		const nextIndex = timer.schedules.findIndex((s) => s.name === timer.name) + 1;
 		if (nextIndex < timer.schedules.length) {
+			action = 'END';
 			timer.name = timer.schedules[nextIndex].name;
 			timer.duration = timer.schedules[nextIndex].duration;
 			timer.remaining = timer.schedules[nextIndex].duration;
 			timer.state = 'N';
 			await PB.collection('txRoomTimers').update(timer.id, timer);
+			// runTimer();
 		} else {
+			console.log('timer is over');
+			action = 'COMPLETED';
 			const data = {
 				name: '치료종료',
 				state: 'N',
@@ -115,6 +132,7 @@
 		}
 	};
 
+	// ** AnimationFrame
 	const cancelAnimationFrame = () => {
 		if (typeof window !== 'undefined' && typeof window.cancelAnimationFrame === 'function') {
 			window.cancelAnimationFrame(frameId);
@@ -128,6 +146,7 @@
 		lastUpdateTime = now;
 		if (timer.remaining > 0) {
 			timer.remaining -= deltaTime;
+			// timer.remaining = Math.floor(timer.remaining);
 			runTimer();
 		} else if (!timerEnded) {
 			timer.remaining = 0;
@@ -140,9 +159,10 @@
 		frameId = requestAnimationFrame(updateFrame);
 	};
 
+	// * handlers
 	const handleTimeDisplayClick = async (event: Event) => {
 		event.stopPropagation();
-		await nextTimer();
+		nextTimer();
 	};
 
 	const handleInitClick = async (event: Event) => {
@@ -165,51 +185,52 @@
 		await nextTimer();
 	};
 
+	// * lifecycle
 	onMount(async () => {
-		beepAudio = new Audio('/beep.wav');
+		beepAudio = new Audio('/beep.wav'); // !! [TODO] 타이머 번호별 파일 beep_1.mp3, ... beep_15.mp3
 		beepAudio.loop = true;
 		timer = await fetchTimer();
 		await drawTimer(timer);
 
 		PB.collection('txRoomTimers').subscribe(timer.id, async (e) => {
-			console.log("timer updated", timer);
-			timer = await fetchTimer();
-			if (timer.state == 'N') {
+			if (action == 'END' || action == 'COMPLETED') {
 				timerEnded = false;
 				beepAudio.pause();
 				beepAudio.currentTime = 0;
+				return
 			}
-			if (timer.schedules.length == 0) {
-				console.log("@@@@@timer ended!!");
+			if (action == 'PAUSE') {
+				cancelAnimationFrame();
+				running = false;
 			}
+			timer = await fetchTimer();
 			await drawTimer(timer);
-		})
+			// console.log("timer updated", timer);
+		});
 	});
 
 	onDestroy(async () => {
 		PB.collection('txRoomTimers').unsubscribe(timer.id);
 	});
-
 </script>
 
 <div>
 	{JSON.stringify(timer)}
 	<div>----------------------</div>
 	<div class:complete={timerEnded}>
-		<span on:click={(e) => handleTimeDisplayClick(e)}>{formatTime(Math.ceil(timer.remaining))}</span>
-		<span>[[{timer.name}]]</span>
-		<span>
-			<button on:click={(e) => handleInitClick(e)}>I</button>
-			{#if running}
-				<button on:click={(e) => handlePauseClick(e)}>❚❚</button>
-			{:else}
-				<button on:click={(e) => handleStartClick(e)}>▶</button>
-			{/if}
-			<button on:click={(e) => handleNextClick(e)}>N</button>
-		</span>
+	<span on:click={(e) => handleTimeDisplayClick(e)}>{formatTime(Math.ceil(timer.remaining))}</span>
+	<span>[[{timer.name}]]</span>
+	<span>
+		<button on:click={(e) => handleInitClick(e)}>I</button>
+		{#if running}
+		<button on:click={(e) => handlePauseClick(e)}>❚❚</button>
+		{:else}
+		<button on:click={(e) => handleStartClick(e)}>▶</button>
+		{/if}
+		<button on:click={(e) => handleNextClick(e)}>N</button>
+	</span>
 	</div>
 </div>
-
 <style>
 	.complete {
 		animation: blink 0.5s infinite;
@@ -227,7 +248,7 @@
 		}
 	}
 	.active {
-		background-color: #4f46e5;
+		background-color: #4f46e5; /* Tailwind indigo-600 for active state */
 		color: white;
 	}
 </style>

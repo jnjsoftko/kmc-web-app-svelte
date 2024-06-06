@@ -221,7 +221,7 @@ Next steps:
 
 - [X] ## 환경 변수 설정(macOS)
 > ~/.zshrc
-```
+```sh
 export KMC_APP_ROOT="/Users/youchan/Dev/Jnj-soft/Projects/external/kmc-web-app-svelte"
 ```
 

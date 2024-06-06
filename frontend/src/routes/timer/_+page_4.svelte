@@ -1,13 +1,16 @@
 <script lang="ts">
 	import { onMount, onDestroy } from 'svelte';
-	import { PB } from '$lib/pocketbase';
+	import PocketBase from 'pocketbase';
+
+	const PB = new PocketBase('http://localhost:8090');
 
 	let timerId = `timer_1`;
+	let action = 'INIT';
 	const TIMERS_COLLECTION_NAME = 'txRoomTimers';
 
 	let timer: any = {};
 	let lastUpdateTime: any = null;
-	let frameId: any = '';
+	let intervalId: any = null;
 	let running = false;
 	let timerEnded = false;
 	let beepAudio: any;
@@ -28,12 +31,12 @@
 		schedules = [
 				{
 					name: '치료1',
-					duration: 5,
+					duration: 120,
 					state: 'N'
 				},
 				{
 					name: '치료2',
-					duration: 5,
+					duration: 120,
 					state: 'N'
 				},
 			]
@@ -65,9 +68,9 @@
 	};
 
 	const pauseTimer = async () => {
-		// cancelAnimationFrame();
 		const data = { remaining: timer.remaining, state: 'P' };
 		await PB.collection('txRoomTimers').update(timer.id, data);
+		action = 'PAUSE'
 	};
 
 	const startTimer = async () => {
@@ -82,7 +85,7 @@
 	};
 
 	const stopTimer = (end = false) => {
-		cancelAnimationFrame();
+		clearInterval(intervalId);
 		if (end) {
 			timerEnded = true;
 			// beepAudio.play();
@@ -94,15 +97,18 @@
 	};
 
 	const nextTimer = async () => {
-		cancelAnimationFrame();
+		clearInterval(intervalId);
+
 		const nextIndex = timer.schedules.findIndex((s) => s.name === timer.name) + 1;
 		if (nextIndex < timer.schedules.length) {
+			action = 'END';
 			timer.name = timer.schedules[nextIndex].name;
 			timer.duration = timer.schedules[nextIndex].duration;
 			timer.remaining = timer.schedules[nextIndex].duration;
 			timer.state = 'N';
 			await PB.collection('txRoomTimers').update(timer.id, timer);
 		} else {
+			action = 'COMPLETED';
 			const data = {
 				name: '치료종료',
 				state: 'N',
@@ -112,12 +118,9 @@
 				schedules: []
 			};
 			await PB.collection('txRoomTimers').update(timer.id, data);
-		}
-	};
-
-	const cancelAnimationFrame = () => {
-		if (typeof window !== 'undefined' && typeof window.cancelAnimationFrame === 'function') {
-			window.cancelAnimationFrame(frameId);
+			timerEnded = true;
+			beepAudio.pause();
+			beepAudio.currentTime = 0;
 		}
 	};
 
@@ -128,7 +131,7 @@
 		lastUpdateTime = now;
 		if (timer.remaining > 0) {
 			timer.remaining -= deltaTime;
-			runTimer();
+			if (timer.remaining < 0) timer.remaining = 0;
 		} else if (!timerEnded) {
 			timer.remaining = 0;
 			stopTimer(true);
@@ -137,7 +140,7 @@
 	};
 
 	const runTimer = () => {
-		frameId = requestAnimationFrame(updateFrame);
+		intervalId = setInterval(updateFrame, 1000); // 1초 간격으로 실행
 	};
 
 	const handleTimeDisplayClick = async (event: Event) => {
@@ -172,24 +175,24 @@
 		await drawTimer(timer);
 
 		PB.collection('txRoomTimers').subscribe(timer.id, async (e) => {
-			console.log("timer updated", timer);
-			timer = await fetchTimer();
-			if (timer.state == 'N') {
+			if (action == 'PAUSE') {
+				clearInterval(intervalId);
+				running = false;
+			} else if (action == 'END' || action == 'COMPLETED') {
 				timerEnded = false;
 				beepAudio.pause();
 				beepAudio.currentTime = 0;
 			}
-			if (timer.schedules.length == 0) {
-				console.log("@@@@@timer ended!!");
-			}
+			timer = await fetchTimer();
 			await drawTimer(timer);
-		})
+			console.log("timer updated", timer);
+		});
 	});
 
 	onDestroy(async () => {
 		PB.collection('txRoomTimers').unsubscribe(timer.id);
+		clearInterval(intervalId);
 	});
-
 </script>
 
 <div>

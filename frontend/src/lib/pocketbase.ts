@@ -1,6 +1,11 @@
+// process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
+
+// const url = `http://localhost:8090`;
+const url = `https://192.168.0.6:8091`;
+console.log(`url: ${url}`);
+import { onMount, onDestroy } from 'svelte';
 import PocketBase from 'pocketbase';
 
-// PocketBase 인스턴스 생성
-const pb = new PocketBase("http://localhost:8090");
+const PB = new PocketBase(url);
 
-export default pb;
+export { PB };
